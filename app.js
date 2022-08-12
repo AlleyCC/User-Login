@@ -15,7 +15,16 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
+  const email = req.body.email
+  const password = req.body.password
+  const filteredUser = Users.find(item => item.email === email && item.password === password)
   
+  if (filteredUser){
+    return res.render('login', { filteredUser })
+  } else {
+    const alert = true
+    return res.render('index', { alert })
+  } 
 })
 
 app.listen(port, (req, res) => {
